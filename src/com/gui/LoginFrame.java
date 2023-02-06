@@ -72,7 +72,7 @@ public class LoginFrame extends JFrame {
         jLabel2 = new JLabel();
         jLabel3 = new JLabel();
         login_btn = new JButton();
-        jButton4 = new JButton();
+        authorinfo_btn = new JButton();
         nofication = new JLabel();
 
         FormListener formListener = new FormListener();
@@ -126,13 +126,13 @@ public class LoginFrame extends JFrame {
         password.addKeyListener(formListener);
 
         jLabel2.setFont(new Font("Times New Roman", 1, 24)); // NOI18N
-        jLabel2.setForeground(new Color(255, 255, 255));
+        jLabel2.setForeground(new Color(0, 0, 0));
         jLabel2.setText("Password");
         jLabel2.setToolTipText("");
         jLabel2.setName("jLabel2"); // NOI18N
 
         jLabel3.setFont(new Font("Times New Roman", 1, 24)); // NOI18N
-        jLabel3.setForeground(new Color(255, 255, 255));
+        jLabel3.setForeground(new Color(0, 0, 0));
         jLabel3.setText("UserName");
         jLabel3.setToolTipText("");
         jLabel3.setName("jLabel3"); // NOI18N
@@ -143,12 +143,13 @@ public class LoginFrame extends JFrame {
         login_btn.setName("login_btn"); // NOI18N
         login_btn.addActionListener(formListener);
 
-        jButton4.setBackground(new Color(0, 0, 0));
-        jButton4.setFont(new Font("Dialog", 0, 18)); // NOI18N
-        jButton4.setForeground(new Color(255, 255, 255));
-        jButton4.setText("Author Info");
-        jButton4.setToolTipText("");
-        jButton4.setName("jButton4"); // NOI18N
+        authorinfo_btn.setBackground(new Color(0, 0, 0));
+        authorinfo_btn.setFont(new Font("Dialog", 0, 18)); // NOI18N
+        authorinfo_btn.setForeground(new Color(255, 255, 255));
+        authorinfo_btn.setText("Author Info");
+        authorinfo_btn.setToolTipText("");
+        authorinfo_btn.setName("authorinfo_btn"); // NOI18N
+        authorinfo_btn.addActionListener(formListener);
 
         nofication.setFont(new Font("Segoe UI", 1, 18)); // NOI18N
         nofication.setForeground(new Color(255, 51, 51));
@@ -170,7 +171,7 @@ public class LoginFrame extends JFrame {
                                 .addComponent(jLabel2))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(278, 278, 278)
-                        .addComponent(jButton4)
+                        .addComponent(authorinfo_btn)
                         .addGap(482, 482, 482)
                         .addComponent(login_btn, GroupLayout.PREFERRED_SIZE, 190, GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(210, Short.MAX_VALUE))
@@ -197,7 +198,7 @@ public class LoginFrame extends JFrame {
                 .addComponent(nofication)
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton4)
+                    .addComponent(authorinfo_btn)
                     .addComponent(login_btn, GroupLayout.PREFERRED_SIZE, 72, GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(185, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -220,6 +221,9 @@ public class LoginFrame extends JFrame {
         public void actionPerformed(ActionEvent evt) {
             if (evt.getSource() == login_btn) {
                 LoginFrame.this.login_btnActionPerformed(evt);
+            }
+            else if (evt.getSource() == authorinfo_btn) {
+                LoginFrame.this.authorinfo_btnActionPerformed(evt);
             }
         }
 
@@ -288,6 +292,10 @@ public class LoginFrame extends JFrame {
         }
     }//GEN-LAST:event_passwordKeyPressed
 
+    private void authorinfo_btnActionPerformed(ActionEvent evt) {//GEN-FIRST:event_authorinfo_btnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_authorinfo_btnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -311,7 +319,7 @@ public class LoginFrame extends JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private JButton jButton4;
+    private JButton authorinfo_btn;
     private JLabel jLabel1;
     private JLabel jLabel2;
     private JLabel jLabel3;

@@ -244,6 +244,7 @@ public class PublisherTerminal extends javax.swing.JFrame {
             messageSystem("Failed!!!");
         } else {
             messageSystem("Success!!!");
+            tc.resetTable(1);
         }
     }//GEN-LAST:event_create_btnActionPerformed
 
@@ -332,13 +333,19 @@ public class PublisherTerminal extends javax.swing.JFrame {
     private javax.swing.JButton search_btn;
     // End of variables declaration//GEN-END:variables
 private class TableControler extends Thread {
+        Thread tbThread = null;
+        int size = 0;
+        public TableControler(){
+            tbThread = this;
+        }
         List<Publisher> temp;
         @Override
         public void run() {
             boolean status = true;
-            int size = 0;
+            size = 0;
             while (true) {
                 temp = user.getPubList();
+                temp.sort(new Publisher());
                 if (temp != null) {
                     if (size < temp.size()) {
                         for (int i = size; i < temp.size(); i++) {
@@ -358,7 +365,19 @@ private class TableControler extends Thread {
             }
         }
         public void stopTable(){
-            Thread.yield();
+            this.yield();
+        }
+        @Override
+        public void start(){
+            tbThread = new Thread(this);
+            tbThread.start();
+        }
+        
+        public void resetTable(int mode){
+            DefaultTableModel tm = (DefaultTableModel) pubtable.getModel();
+            tm.setRowCount(0);
+            size = 0;
+            if(mode == 1 && !this.isAlive()) this.start();
         }
     }
 }

@@ -59,7 +59,7 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="278" max="-2" attributes="0"/>
-                      <Component id="jButton4" min="-2" max="-2" attributes="0"/>
+                      <Component id="authorinfo_btn" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="482" max="-2" attributes="0"/>
                       <Component id="login_btn" min="-2" pref="190" max="-2" attributes="0"/>
                   </Group>
@@ -94,7 +94,7 @@
               <Component id="nofication" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jButton4" min="-2" max="-2" attributes="0"/>
+                  <Component id="authorinfo_btn" min="-2" max="-2" attributes="0"/>
                   <Component id="login_btn" min="-2" pref="72" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="185" max="32767" attributes="0"/>
@@ -197,7 +197,7 @@
           <Font name="Times New Roman" size="24" style="1"/>
         </Property>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+          <Color blue="0" green="0" red="0" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Password"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
@@ -210,7 +210,7 @@
           <Font name="Times New Roman" size="24" style="1"/>
         </Property>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+          <Color blue="0" green="0" red="0" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="UserName"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
@@ -232,7 +232,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="login_btnActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton4">
+    <Component class="javax.swing.JButton" name="authorinfo_btn">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="0" red="0" type="rgb"/>
@@ -245,8 +245,11 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Author Info"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
-        <Property name="name" type="java.lang.String" value="jButton4" noResource="true"/>
+        <Property name="name" type="java.lang.String" value="authorinfo_btn" noResource="true"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="authorinfo_btnActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="nofication">
       <Properties>

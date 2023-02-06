@@ -8,6 +8,7 @@ import com.controler.Noficiation;
 import com.controler.UserControler;
 import com.model.Book;
 import com.model.Publisher;
+import com.model.StageEnum;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
@@ -48,6 +49,7 @@ public class BookTerminal extends javax.swing.JFrame {
     private Menu menu;
     private TableControler tc;
     private Noficiation nc;
+    private StageEnum stage = null;
 
     /**
      * Creates new form BookTerminal
@@ -493,13 +495,13 @@ public class BookTerminal extends javax.swing.JFrame {
                 tm.addRow(rowData);
             }
             noficiation("Founded: " + list.size() + " entity(s)");
-        }else{
+        } else {
             noficiation("Not found !!!");
         }
     }//GEN-LAST:event_searchBNameActionPerformed
 
     private void searchPID1ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_searchPID1ActionPerformed
-       tc.resetTable(0);
+        tc.resetTable(0);
         String id = bpID.getText();
         if (id.isEmpty()) {
             noficiation("PID is empty!!!");
@@ -516,7 +518,8 @@ public class BookTerminal extends javax.swing.JFrame {
                 tm.addRow(rowData);
             }
             noficiation("Founded: " + list.size() + " entity(s)");
-        }else noficiation("Not found !!!");
+        } else
+            noficiation("Not found !!!");
     }//GEN-LAST:event_searchPID1ActionPerformed
 
     private void createActionPerformed(ActionEvent evt) {//GEN-FIRST:event_createActionPerformed
@@ -531,12 +534,36 @@ public class BookTerminal extends javax.swing.JFrame {
             noficiation("Failed !!!");
         } else {
             noficiation("Success !!!");
+            tc.resetTable(1);
         }
     }//GEN-LAST:event_createActionPerformed
 
     private void clear_btnActionPerformed(ActionEvent evt) {//GEN-FIRST:event_clear_btnActionPerformed
         //Clear
         clearText();
+        switch (stage) {
+            case SEARCHBYBID:
+
+                break;
+            case SEARCHBYNAME:
+                tc.resetTable(0);
+                break;
+
+            case SEARCHBYPID:
+                tc.resetTable(0);
+                break;
+            case CREATE:
+
+                break;
+
+            case UPDATE:
+
+                break;
+
+            case DELETE:
+
+                break;
+        }
     }//GEN-LAST:event_clear_btnActionPerformed
 
     private void update_btnActionPerformed(ActionEvent evt) {//GEN-FIRST:event_update_btnActionPerformed
@@ -555,7 +582,7 @@ public class BookTerminal extends javax.swing.JFrame {
         } else {
             noficiation("Update failed !!!");
         }
-        
+
     }//GEN-LAST:event_update_btnActionPerformed
 
     private void searchBIDActionPerformed(ActionEvent evt) {//GEN-FIRST:event_searchBIDActionPerformed
@@ -563,7 +590,7 @@ public class BookTerminal extends javax.swing.JFrame {
         Book temp = user.searchBookByBID(searchID);
         if (temp == null) {
             message.setText("Not found BID: " + searchID);
-            return ;
+            return;
         }
         bid.setText(temp.getbID());
         bname.setText(temp.getName());
@@ -586,18 +613,20 @@ public class BookTerminal extends javax.swing.JFrame {
 
     private void bidFocusLost(FocusEvent evt) {//GEN-FIRST:event_bidFocusLost
         // TODO add your handling code here:
-        if(bid.getText().isEmpty()) noficiation("Your BID is empty, please check again !!!", bidmess);
-        else{
-            if(!Validate.regexValidate("B[\\d]{5}", bid.getText())){
-                noficiation("Your BID  entered is not right format !!!",bidmess);
+        if (bid.getText().isEmpty())
+            noficiation("Your BID is empty, please check again !!!", bidmess);
+        else {
+            if (!Validate.regexValidate("B[\\d]{5}", bid.getText())) {
+                noficiation("Your BID  entered is not right format !!!", bidmess);
             }
         }
     }//GEN-LAST:event_bidFocusLost
 
     private void bnameFocusLost(FocusEvent evt) {//GEN-FIRST:event_bnameFocusLost
-        if(bname.getText().isEmpty()) noficiation("Your BName is empty, please check again !!!",namemess);
-        else{
-            if(!Validate.stringValidationSize(bname.getText(), 5, 30)){
+        if (bname.getText().isEmpty())
+            noficiation("Your BName is empty, please check again !!!", namemess);
+        else {
+            if (!Validate.stringValidationSize(bname.getText(), 5, 30)) {
                 noficiation("Your name is too long or too shot, please check again !!!\nTips: your name should length about 5-30 chars !!!", namemess);
                 //noficiation("Tips: your name should length about 5-30 chars !!!");
             }
@@ -605,9 +634,10 @@ public class BookTerminal extends javax.swing.JFrame {
     }//GEN-LAST:event_bnameFocusLost
 
     private void bpriceFocusLost(FocusEvent evt) {//GEN-FIRST:event_bpriceFocusLost
-        if(bprice.getText().isEmpty()) noficiation("Your Price shoud not be empty, please check again !!!",pricemess);
-        else{
-            if(!Validate.intValidate(bprice.getText(),1, Integer.MAX_VALUE)){
+        if (bprice.getText().isEmpty())
+            noficiation("Your Price shoud not be empty, please check again !!!", pricemess);
+        else {
+            if (!Validate.intValidate(bprice.getText(), 1, Integer.MAX_VALUE)) {
                 noficiation("Your price isn't valid, please check again !!!\nTips: your price is a number and > 1", pricemess);
             }
         }
@@ -615,9 +645,10 @@ public class BookTerminal extends javax.swing.JFrame {
 
     private void bquanFocusLost(FocusEvent evt) {//GEN-FIRST:event_bquanFocusLost
         // TODO add your handling code here:
-        if(bquan.getText().isEmpty()) noficiation("Your quantity should not be empty, please check again !!!", quantitymess);
-        else{
-            if(!Validate.intValidate(bquan.getText(),0, Integer.MAX_VALUE)){
+        if (bquan.getText().isEmpty())
+            noficiation("Your quantity should not be empty, please check again !!!", quantitymess);
+        else {
+            if (!Validate.intValidate(bquan.getText(), 0, Integer.MAX_VALUE)) {
                 noficiation("Your quantity isn't valid, please check again !!!\nTips: your quantity is a number and > 0", quantitymess);
             }
         }
@@ -625,9 +656,10 @@ public class BookTerminal extends javax.swing.JFrame {
 
     private void bpIDFocusLost(FocusEvent evt) {//GEN-FIRST:event_bpIDFocusLost
         // TODO add your handling code here:
-        if(bpID.getText().isEmpty()) noficiation("PID is empty, please checked again", pidmess);
-        else{
-            if(!Validate.regexValidate("P[\\d]{5}", bpID.getText())){
+        if (bpID.getText().isEmpty())
+            noficiation("PID is empty, please checked again", pidmess);
+        else {
+            if (!Validate.regexValidate("P[\\d]{5}", bpID.getText())) {
                 noficiation("Your PID is not right format, please check again\nTips: The format of PID is  Pxxxxx", pidmess);
             }
         }
@@ -661,6 +693,7 @@ public class BookTerminal extends javax.swing.JFrame {
         bquan.setFocusable(false);
         bprice.setFocusable(false);
         bpID.setFocusable(false);
+        stage = StageEnum.SEARCHBYBID;
     }//GEN-LAST:event_sbidoption1MouseClicked
 
     private void sbinameoptionMouseClicked(MouseEvent evt) {//GEN-FIRST:event_sbinameoptionMouseClicked
@@ -688,11 +721,12 @@ public class BookTerminal extends javax.swing.JFrame {
         bprice.setEditable(false);
         bpID.setEditable(false);
         bstatus.setEditable(false);
-         bid.setFocusable(false);
+        bid.setFocusable(false);
         bname.setFocusable(true);
         bquan.setFocusable(false);
         bprice.setFocusable(false);
         bpID.setFocusable(false);
+        stage = StageEnum.SEARCHBYNAME;
     }//GEN-LAST:event_sbinameoptionMouseClicked
 
     private void spidoptionMouseClicked(MouseEvent evt) {//GEN-FIRST:event_spidoptionMouseClicked
@@ -720,11 +754,12 @@ public class BookTerminal extends javax.swing.JFrame {
         bprice.setEditable(false);
         bpID.setEditable(true);
         bstatus.setEditable(false);
-         bid.setFocusable(false);
+        bid.setFocusable(false);
         bname.setFocusable(false);
         bquan.setFocusable(false);
         bprice.setFocusable(false);
         bpID.setFocusable(true);
+        stage = StageEnum.SEARCHBYPID;
     }//GEN-LAST:event_spidoptionMouseClicked
 
     private void createoptionMouseClicked(MouseEvent evt) {//GEN-FIRST:event_createoptionMouseClicked
@@ -756,6 +791,7 @@ public class BookTerminal extends javax.swing.JFrame {
         bquan.setFocusable(true);
         bprice.setFocusable(true);
         bpID.setFocusable(true);
+        stage = StageEnum.CREATE;
     }//GEN-LAST:event_createoptionMouseClicked
 
     private void updateoptionMouseClicked(MouseEvent evt) {//GEN-FIRST:event_updateoptionMouseClicked
@@ -769,7 +805,7 @@ public class BookTerminal extends javax.swing.JFrame {
         deleteoption.setBackground(Color.decode("#3399ff"));
         tc.resetTable(1);
         setVisibleObject(true);
-         searchBID.show(true);
+        searchBID.show(true);
         searchBName.show(false);
         searchPID1.show(false);
         update_btn.show(true);
@@ -787,6 +823,7 @@ public class BookTerminal extends javax.swing.JFrame {
         bquan.setFocusable(true);
         bprice.setFocusable(true);
         bpID.setFocusable(true);
+        stage = StageEnum.UPDATE;
     }//GEN-LAST:event_updateoptionMouseClicked
 
     private void deleteoptionMouseClicked(MouseEvent evt) {//GEN-FIRST:event_deleteoptionMouseClicked
@@ -817,6 +854,7 @@ public class BookTerminal extends javax.swing.JFrame {
         bquan.setFocusable(false);
         bprice.setFocusable(false);
         bpID.setFocusable(false);
+        stage = StageEnum.DELETE;
     }//GEN-LAST:event_deleteoptionMouseClicked
 
     private void exitoptionMouseClicked(MouseEvent evt) {//GEN-FIRST:event_exitoptionMouseClicked
@@ -825,25 +863,27 @@ public class BookTerminal extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_exitoptionMouseClicked
 
-    
-    private void noficiation(String mess){
+    private void noficiation(String mess) {
         nc = new Noficiation(message);
         nc.setContent(mess);
         nc.start();
     }
-    private void noficiation(String mess, JLabel temp){
+
+    private void noficiation(String mess, JLabel temp) {
         nc = new Noficiation(temp);
         nc.setContent(mess);
         nc.start();
     }
-    private void clearText(){
+
+    private void clearText() {
         bid.setText("");
         bname.setText("");
         bprice.setText("");
         bquan.setText("");
         bpID.setText("");
     }
-    private void setVisibleObject(boolean status){
+
+    private void setVisibleObject(boolean status) {
         searchBID.show(status);
         searchBName.show(status);
         searchPID1.show(status);
@@ -929,14 +969,16 @@ public class BookTerminal extends javax.swing.JFrame {
         private int size = 0;
         private boolean checker = true;
         private Thread thread = null;
-        
-        private TableControler(){
+
+        private TableControler() {
             thread = this;
         }
+
         @Override
         public void run() {
             while (checker) {
                 bookTemp = user.getBookList();
+                bookTemp.sort(new Book());
                 if (bookTemp != null) {
                     if (size < bookTemp.size()) {
                         for (int i = size; i < bookTemp.size(); i++) {
@@ -949,7 +991,9 @@ public class BookTerminal extends javax.swing.JFrame {
                                     break;
                                 }
                             }
-                            if(pName == null) pName = "Unknown";
+                            if (pName == null) {
+                                pName = "Unknown";
+                            }
                             String[] rowData = {c.getbID(), c.getName(), Integer.toString(c.getQuantity()), Integer.toString(c.getPrice()), Integer.toString(c.getPrice() * c.getQuantity()), pName, c.isStatus()};
                             DefaultTableModel tm = (DefaultTableModel) bookTable.getModel();
                             tm.addRow(rowData);
@@ -970,16 +1014,16 @@ public class BookTerminal extends javax.swing.JFrame {
             thread = new Thread(this);
             thread.start();
         }
-        
-        public void stopUpdate(){
+
+        public void stopUpdate() {
             checker = false;
         }
-        
-        public void resetTable(int mode){
-            DefaultTableModel tm = (DefaultTableModel)bookTable.getModel();
+
+        public void resetTable(int mode) {
+            DefaultTableModel tm = (DefaultTableModel) bookTable.getModel();
             tm.setRowCount(0);
             size = 0;
-            if(mode == 1 && !this.isAlive()){
+            if (mode == 1 && !this.isAlive()) {
                 checker = true;
                 this.start();
             }

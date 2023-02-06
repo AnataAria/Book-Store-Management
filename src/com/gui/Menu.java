@@ -13,7 +13,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -32,6 +31,8 @@ public class Menu extends javax.swing.JFrame {
     private UserControler user;
     private LoginFrame login;
     private LoginControler lc;
+    private Thread check;
+
     /**
      * Creates new form Menu
      */
@@ -39,22 +40,46 @@ public class Menu extends javax.swing.JFrame {
         initComponents();
     }
 
-    public Menu(Account account, UserControler user, LoginControler lc,LoginFrame login) {
+    public Menu(Account account, UserControler user, LoginControler lc, LoginFrame login) {
         this.account = account;
         this.user = user;
         this.login = login;
         this.lc = lc;
         initComponents();
         name.setText(account.getName());
+        check = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (null == user.getPubList()) {
+                    book_btn.setEnabled(false);
+                } else {
+                    book_btn.setEnabled(true);
+                }
+            }
+        }
+        );
+        check.start();
     }
-    
+
     public Menu(Account account, UserControler user, LoginControler lc) {
         this.account = account;
         this.user = user;
-        this.login = new LoginFrame(user,lc);
+        this.login = new LoginFrame(user, lc);
         this.lc = lc;
         initComponents();
         name.setText(account.getName());
+        check = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (null == user.getPubList()) {
+                    book_btn.setEnabled(false);
+                } else {
+                    book_btn.setEnabled(true);
+                }
+            }
+        }
+        );
+        check.start();
     }
 
     /**
@@ -236,7 +261,7 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void book_btnActionPerformed(ActionEvent evt) {//GEN-FIRST:event_book_btnActionPerformed
-        BookTerminal bookT = new BookTerminal(user,this);
+        BookTerminal bookT = new BookTerminal(user, this);
         bookT.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_book_btnActionPerformed
@@ -248,7 +273,7 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_pub_btnActionPerformed
 
     private void createAcc_btnActionPerformed(ActionEvent evt) {//GEN-FIRST:event_createAcc_btnActionPerformed
-        RegisterAccount rc = new RegisterAccount(this,lc);
+        RegisterAccount rc = new RegisterAccount(this, lc);
         this.setVisible(false);
         rc.setVisible(true);
     }//GEN-LAST:event_createAcc_btnActionPerformed
@@ -259,6 +284,7 @@ public class Menu extends javax.swing.JFrame {
         login.getPassword().setText("");
         account = null;
         lc.deleteSession();
+        if(check != null) check.yield();
     }//GEN-LAST:event_exitActionPerformed
 
     /**

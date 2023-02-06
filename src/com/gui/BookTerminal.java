@@ -19,7 +19,6 @@ import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
@@ -485,13 +484,24 @@ public class BookTerminal extends javax.swing.JFrame {
         tc.resetTable(0);
         String name = bname.getText();
         if (name.isEmpty()) {
+            noficiation("Name is empty, please check again !!!");
             return;
         }
         List<Book> list = user.searchBookByName(name);
         DefaultTableModel tm = (DefaultTableModel) bookTable.getModel();
         if (list != null) {
             for (Book t : list) {
-                String[] rowData = {t.getbID(), t.getName(), Integer.toString(t.getPrice()), Integer.toString(t.getQuantity()), Integer.toString(t.getPrice() * t.getQuantity()), t.isStatus(), t.getpID()};
+                String pName = null;
+                for (Publisher a : user.getPubList()) {
+                    if (a.getpID().equalsIgnoreCase(t.getpID())) {
+                        pName = a.getName();
+                        break;
+                    }
+                }
+                if (pName == null) {
+                    pName = "Unknown";
+                }
+                String[] rowData = {t.getbID(), t.getName(), Integer.toString(t.getPrice()), Integer.toString(t.getQuantity()), Integer.toString(t.getPrice() * t.getQuantity()), pName, t.isStatus()};
                 tm.addRow(rowData);
             }
             noficiation("Founded: " + list.size() + " entity(s)");
@@ -514,7 +524,17 @@ public class BookTerminal extends javax.swing.JFrame {
         DefaultTableModel tm = (DefaultTableModel) bookTable.getModel();
         if (list != null) {
             for (Book t : list) {
-                String[] rowData = {t.getbID(), t.getName(), Integer.toString(t.getPrice()), Integer.toString(t.getQuantity()), Integer.toString(t.getPrice() * t.getQuantity()), t.isStatus(), t.getpID()};
+                String pName = null;
+                for (Publisher a : user.getPubList()) {
+                    if (a.getpID().equalsIgnoreCase(t.getpID())) {
+                        pName = a.getName();
+                        break;
+                    }
+                }
+                if (pName == null) {
+                    pName = "Unknown";
+                }
+                String[] rowData = {t.getbID(), t.getName(), Integer.toString(t.getPrice()), Integer.toString(t.getQuantity()), Integer.toString(t.getPrice() * t.getQuantity()), pName, t.isStatus()};
                 tm.addRow(rowData);
             }
             noficiation("Founded: " + list.size() + " entity(s)");
@@ -525,8 +545,14 @@ public class BookTerminal extends javax.swing.JFrame {
     private void createActionPerformed(ActionEvent evt) {//GEN-FIRST:event_createActionPerformed
         String bID = bid.getText();
         String Name = bname.getText();
-        int Price = Integer.parseInt(bprice.getText());
-        int Quantity = Integer.parseInt(bquan.getText());
+        int Price = 0;
+        int Quantity = 0;
+        try {
+            Price = Integer.parseInt(bprice.getText());
+            Quantity = Integer.parseInt(bquan.getText());
+        } catch (NumberFormatException e) {
+            noficiation("Price or Quantity is not a number !!! Failed !!!");
+        }
         String pID = bpID.getText();
         String status = bstatus.getSelectedItem().toString();
         Book temp = new Book(bID, Name, Price, Quantity, pID, status);

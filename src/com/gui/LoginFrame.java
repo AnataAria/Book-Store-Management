@@ -9,24 +9,19 @@ import com.controler.UserControler;
 import com.model.Account;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.time.LocalTime;
-import java.util.Objects;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.GroupLayout;
@@ -294,6 +289,12 @@ public class LoginFrame extends JFrame {
 
     private void authorinfo_btnActionPerformed(ActionEvent evt) {//GEN-FIRST:event_authorinfo_btnActionPerformed
         // TODO add your handling code here:
+        Desktop temp = Desktop.getDesktop();
+        try {
+            temp.browse(new URI("https://github.com/AnataAria"));
+        } catch (URISyntaxException | IOException ex) {
+            Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_authorinfo_btnActionPerformed
 
     /**

@@ -7,7 +7,6 @@ package com.controler;
 import com.dao.*;
 import com.model.Book;
 import com.model.Publisher;
-import java.util.ArrayList;
 import java.util.List;
 import my.lib.FileControler;
 import my.lib.IFileControler;
@@ -31,9 +30,9 @@ public class UserControler {
         this.bookPath = bookPath;
         this.pubPath = pubPath;
         fBC = new FileControler();
-        fBC.setFilepath(bookPath);
+        fBC.setFilepath(this.bookPath);
         fPC = new FileControler();
-        fPC.setFilepath(pubPath);
+        fPC.setFilepath(this.pubPath);
         fbcStatus = fBC.loadFromFile();
         fpcStatus = fPC.loadFromFile();
         if (fbcStatus && fpcStatus) {

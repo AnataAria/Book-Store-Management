@@ -92,11 +92,11 @@ public class Book implements Serializable, Comparator<Book> {
 
     @Override
     public int compare(Book o1, Book o2) {
-        if (o1.getQuantity() > o2.getQuantity()) {
-            return 1;
-        }
-        if (o1.getQuantity() < o2.getQuantity()) {
-            return -1;
+        if(o1.getQuantity() > o2.getQuantity()) return -1;
+        if(o1.getQuantity() < o2.getQuantity()) return 1;
+        if(o1.getQuantity() == o2.getQuantity()){
+            if(o1.getPrice() < o2.getPrice()) return -1;
+            if(o1.getPrice() > o2.getPrice()) return 1;
         }
         return 0;
     }

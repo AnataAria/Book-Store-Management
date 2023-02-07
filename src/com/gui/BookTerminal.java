@@ -596,8 +596,14 @@ public class BookTerminal extends javax.swing.JFrame {
         bid.setEditable(true);
         String bID = bid.getText();
         String Name = bname.getText();
-        int Price = Integer.parseInt(bprice.getText());
-        int Quantity = Integer.parseInt(bquan.getText());
+        int Price = 0;
+        int Quantity = 0;
+        try {
+            Price = Integer.parseInt(bprice.getText());
+            Quantity = Integer.parseInt(bquan.getText());
+        } catch (NumberFormatException e) {
+            noficiation("Price or Quantity is not a number !!! Failed !!!");
+        }
         String pID = bpID.getText();
         String status = bstatus.getSelectedItem().toString();
         Book temp = new Book(bID, Name, Price, Quantity, pID, status);

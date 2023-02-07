@@ -61,8 +61,6 @@ public class Publisher implements Serializable, Comparator<Publisher>{
 
     @Override
     public int compare(Publisher o1, Publisher o2) {
-        if(o1.getName().compareTo(o2.getName()) > 0) return 1;
-        if(o1.getName().compareTo(o2.getName()) < 0) return -1;
-        return 0;
+        return o1.getName().compareTo(o2.getName());
     }
 }
